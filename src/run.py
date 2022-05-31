@@ -160,9 +160,11 @@ job_path = os.path.join(job_dir, f"{args.analysis}-{args.subanalysis}.sh")
 log_dir = os.path.join('logs', args.analysis, args.subanalysis, date)
 script_path = os.path.join('code', args.analysis, args.subanalysis, f"{args.analysis}-{args.subanalysis}{script_params[args.script]['file_ext']}")
 
-# Check for existance of log dir and script file
+# Check for existance of log dir, job_dir, and script file
 if not os.path.isdir(log_dir):
     os.makedirs(log_dir)
+if not os.path.isdir(job_dir):
+    os.makedirs(job_dir)                           
 if not os.path.exists(script_path):
     print(f"Uh oh! Looks like we can't find the expected script: {script_path}\n",
           f"Please name and localize the script as shown above and try again\n")
