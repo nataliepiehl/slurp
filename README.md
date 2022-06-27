@@ -9,10 +9,10 @@ project
 └───code
 │   └───parent_analysis_1
 │       └──sub_analysis_1
-│			 │ parent_analysis_1-sub_analysis_1.R
+│           │ parent_analysis_1-sub_analysis_1.R
 │   └───parent_analysis_2
 │       └──sub_analysis_2
-│			 │ parent_analysis_2-sub_analysis_2.py
+│           │ parent_analysis_2-sub_analysis_2.py
 │
 └───logs
 │
