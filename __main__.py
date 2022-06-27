@@ -155,7 +155,7 @@ print("")
 # Establish dirs and paths
 
 # Generate paths
-job_dir = os.path.join('slurm', 'jobs')
+job_dir = os.path.join('slurp', 'jobs')
 job_path = os.path.join(job_dir, f"{args.analysis}-{args.subanalysis}.sh")
 log_dir = os.path.join('logs', args.analysis, args.subanalysis, date)
 script_path = os.path.join('code', args.analysis, args.subanalysis, f"{args.analysis}-{args.subanalysis}{script_params[args.script]['file_ext']}")
