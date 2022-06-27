@@ -28,7 +28,8 @@ time = datetime.now().strftime("%H_%M_%S")
 # Handle command line arguments
 
 # Organize command line arguments
-parser = argparse.ArgumentParser(description='Submit slurm job')
+parser = argparse.ArgumentParser(description='Submit slurm job',
+                                 formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('parentanalysis', type=str,
                     help='Name of parent analysis to run')
 parser.add_argument('subanalysis', type=str,
