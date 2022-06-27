@@ -23,6 +23,9 @@
 # ------ condaenv:  
 # ------ modules: \['R/4.1.1', ''] 
 
+# Specify user
+user = ""
+
 # Write out custom parameters for each parent analysis
 parent_params = {
     'example_analysis': {

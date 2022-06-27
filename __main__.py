@@ -17,7 +17,7 @@
 import argparse
 import os
 from datetime import datetime
-from params import parent_params, sub_params, script_params
+from params import user, parent_params, sub_params, script_params
 
 # Record date and time
 print("\n", datetime.now(), "\n")
@@ -199,7 +199,10 @@ with open(job_path, 'w') as f:
     f.writelines(f"#SBATCH --verbose\n\n")
 
     # Write datetime
-    f.writelines(f"echo '{date}-{time}'\n\n")
+    f.writelines(f"echo '{date}-{time}'\n")
+    
+    # Write user
+    f.writelines(f"echo '{user}'\n\n")
 
     # Write module loading
     f.writelines(f"module purge\n")
