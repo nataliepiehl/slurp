@@ -1,42 +1,56 @@
 #!/usr/bin/env python
+# ------------------------------------------------------------------------------
+# -----                                                                    -----
+# -----                           Gate Lab                                 -----
+# -----                     Northwestern University                        -----
+# -----                                                                    -----
+# ------------------------------------------------------------------------------
 #
-# Northwestern University - Gate Lab
-# Natalie Piehl
-# 2022-05-02
+# Date: 05-02-2022
+# Written by: Natalie Piehl
+# Summary: Save custom parameters for running jobs via slurm on Quest
 #
 # ------------------------------------------------------------------------------
-# Write out custom parameters
+#
+# Write out custom parameters for parent and sub analyses
 # Default values:
-#  ------ p31535 account
-#  ------ short partition
-#  ------ 1 thread(s)
-#  ------ 2GB memory
-#  ------ 1 hour(s)
+# ------ account: p31535 
+# ------ threads: 1 threads
+# ------ mem: 2 GB
+# ------ time: 1 hour(s)
+# ------ partition: short 
+# ------ script: R    
+# ------ condaenv:  
+# ------ modules: \['R/4.1.1', ''] 
 
-# Write out custom parameters for each analysis
-analysis_params = {
-    'de': {
-        'threads': 1,
-        'mem': 64,
-    },
-    'sratoolkit': {
-        'modules': ['sratoolkit/3.0.0'],
+# Write out custom parameters for each parent analysis
+parent_params = {
+    'example_analysis': {
+        'account': 'b1042',
+        'partition': 'normal',
+        'script': 'python'
         'mem': 64,
         'time': 4,
-    },
-    'snapatac': {
+        'threads': 1,
+        'modules': ['sratoolkit/3.0.0'],
         'condaenv': './env/snapatac_env',
-    }
+    },
+    'your_analysis': {
+         # Your parameters go here
+    },
 }
 
-# Write out custom parameters for each subanalysis
-subanalysis_params = {
-    'clustering': {
-        'supervised': {
+# Write out custom parameters for each sub analysis
+sub_params = {
+    'clustering': { # This is specifying the parent analysis
+        'supervised': { # This is specifying the sub analysis
           'modules': ['hdf5/1.8.15-serial']
         }
     },
 }
+
+# ------------------------------------------------------------------------------
+# SPe
 
 # Write out script running parameters
 script_params = {

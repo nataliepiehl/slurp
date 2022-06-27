@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+# ------------------------------------------------------------------------------
+# -----                                                                    -----
+# -----                           Gate Lab                                 -----
+# -----                     Northwestern University                        -----
+# -----                                                                    -----
+# ------------------------------------------------------------------------------
 #
-# Northwestern University - Gate Lab
-# Natalie Piehl
-# 2022-02-03
-#
-# Generate slurm job script for a given analysis:subanalysis
-# Execute from project root as 'python3 slurp <analysis> <subanalysis> <args>'
+# Date: 02-03-2022
+# Written by: Natalie Piehl
+# Summary: Run jobs via slurm on Quest
 #
 # ------------------------------------------------------------------------------
 # Initialization
@@ -14,7 +17,7 @@
 import argparse
 import os
 from datetime import datetime
-from params import analysis_params, subanalysis_params, script_params
+from params import parent_params, sub_params, script_params
 
 # Record date and time
 print("\n", datetime.now())
@@ -26,7 +29,7 @@ time = datetime.now().strftime("%H_%M_%S")
 
 # Organize command line arguments
 parser = argparse.ArgumentParser(description='Submit slurm job')
-parser.add_argument('analysis', type=str,
+parser.add_argument('parentanalysis', type=str,
                     help='Name of parent analysis to run')
 parser.add_argument('subanalysis', type=str,
                     help='Name of sub analysis to run')
@@ -40,7 +43,7 @@ parser.add_argument('-m', '--mem', type=int, default=0,
                     help='Number of GB of RAM memory needed; Default=2')
 parser.add_argument('-t', '--time', type=int, default=0,
                     help='Number of hours needed; Default=1')
-parser.add_argument('-s', '--script', type=str, default='',
+parser.add_argument('-s', '--script', type=str, default='', choices=['R', 'python', 'bash'],
                     help='Language of script; Default=R')
 parser.add_argument('-o', '--modules', nargs = '+', type=str, default=[''],
                     help='Additional modules to load; Default=None')
@@ -82,12 +85,12 @@ def assign_param(param):
     else:
         # Try setting to subanalysis specific value
         try:
-            setattr(args, param, subanalysis_params[args.analysis][args.subanalysis][param])
+            setattr(args, param, sub_params[args.parentanalysis][args.subanalysis][param])
             print(f"------ {param}: {getattr(args, param)} {param_units[param]} (subanalysis specific)")
         except:
             # Else try setting to analysis specific value
             try:
-                setattr(args, param, analysis_params[args.analysis][param])
+                setattr(args, param, parent_params[args.parentanalysis][param])
                 print(f"------ {param}: {getattr(args, param)} {param_units[param]} (analysis specific)")
             # Else set to default
             except:
@@ -126,12 +129,12 @@ def assign_modules():
     else:
         # Try setting to subanalysis specific value
         try:
-            setattr(args, 'modules', script_modules + subanalysis_params[args.analysis][args.subanalysis]['modules'])
+            setattr(args, 'modules', script_modules + sub_params[args.parentanalysis][args.subanalysis]['modules'])
             print(f"------ modules: {args.modules} (subanalysis specific)")
         except:
             # Else try setting to analysis specific value
             try:
-                setattr(args, 'modules', script_modules + analysis_params[args.analysis]['modules'])
+                setattr(args, 'modules', script_modules + parent_params[args.parentanalysis]['modules'])
                 print(f"------ modules: {args.modules} (analysis specific)")
             # Else set to default
             except:
@@ -140,7 +143,7 @@ def assign_modules():
     return None
 
 # Assign parameters
-print(f"Parameters for current {args.analysis}-{args.subanalysis} job:\n")
+print(f"Parameters for current {args.parentanalysis}-{args.subanalysis} job:\n")
 assign_param('account')
 assign_param('threads')
 assign_param('mem')
@@ -156,9 +159,9 @@ print("")
 
 # Generate paths
 job_dir = os.path.join('slurp', 'jobs')
-job_path = os.path.join(job_dir, f"{args.analysis}-{args.subanalysis}.sh")
-log_dir = os.path.join('logs', args.analysis, args.subanalysis, date)
-script_path = os.path.join('code', args.analysis, args.subanalysis, f"{args.analysis}-{args.subanalysis}{script_params[args.script]['file_ext']}")
+job_path = os.path.join(job_dir, f"{args.parentanalysis}-{args.subanalysis}.sh")
+log_dir = os.path.join('logs', args.parentanalysis, args.subanalysis, date)
+script_path = os.path.join('code', args.parentanalysis, args.subanalysis, f"{args.parentanalysis}-{args.subanalysis}{script_params[args.script]['file_ext']}")
 
 # Check for existance of log dir, job_dir, and script file
 if not os.path.isdir(log_dir):
@@ -179,7 +182,7 @@ with open(job_path, 'w') as f:
     f.writelines("#!/bin/bash\n")
     f.writelines(f"#SBATCH --account {args.account}\n")
     f.writelines(f"#SBATCH --partition {args.partition}\n")
-    f.writelines(f"#SBATCH --job-name {args.analysis}-{args.subanalysis}\n")
+    f.writelines(f"#SBATCH --job-name {args.parentanalysis}-{args.subanalysis}\n")
     f.writelines(f"#SBATCH --nodes 1\n")
     f.writelines(f"#SBATCH --ntasks-per-node {args.threads}\n")
     f.writelines(f"#SBATCH --mem {args.mem}GB\n")
