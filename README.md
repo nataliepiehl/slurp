@@ -51,11 +51,11 @@ Navigate into the root of your repo and execute the following:
 + Analysis or subanalysis specific paramters can be saved in `slurp/params.py` to avoid manually specifying the above parameters every time; examples shown within script.
 
 + Default values are as follows:  
------- account: p31535  (default)  
------- threads: 1 threads (default)  
------- mem: 2 GB (default)  
------- time: 1 hour(s) (default)  
------- partition: short (default)  
------- script: R  (default)  
------- condaenv:   (default)  
------- modules: \['R/4.1.1', ''] (default)  
+------ account: p31535  
+------ threads: 1 threads  
+------ mem: 2 GB  
+------ time: 1 hour(s)  
+------ partition: short  
+------ script: R   
+------ condaenv:    
+------ modules: \['R/4.1.1', '']  
