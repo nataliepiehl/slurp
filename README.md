@@ -50,6 +50,8 @@ Navigate into the root of your repo and execute the following:
 
 + Analysis or subanalysis specific paramters can be saved in `slurp/params.py` to avoid manually specifying the above parameters every time; examples shown within script.
 
+  + The user can also be specified in `slurp/params.py` so it is written to each job log
+
 + Default values are as follows:  
 ------ account: p31535  
 ------ threads: 1 threads  

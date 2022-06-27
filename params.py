@@ -24,6 +24,7 @@
 # ------ modules: \['R/4.1.1', ''] 
 
 # Specify user
+# Ex: user = "Natalie Piehl"
 user = ""
 
 # Write out custom parameters for each parent analysis
