@@ -1,18 +1,61 @@
 # slurp
-Tool for running jobs on Quest via SLURM
+`slurp` is a tool to quickly submit jobs to Quest without manually creating an sbatch script every time.
+
+`slurp` is dependent on the following project/repo structure:
+
+```
+project
+│
+└───code
+│   └───parent_analysis_1
+│       └──sub_analysis_1
+│			 │ parent_analysis_1-sub_analysis_1.R
+│   └───parent_analysis_2
+│       └──sub_analysis_2
+│			 │ parent_analysis_2-sub_analysis_2.py
+│
+└───logs
+│
+└───slurp
+```
+
+`slurp` MUST be parallel to the `code` and `logs` folders. Scripts must be stored within the parent and sub analysis folder structure and named `<parent>-<sub>.R/py/sh` in order to run. 
+
+## How to add slurp as a submodule to a git repo
+
+Navigate into the root of your repo and execute the following:
+
+```
+git submodule add https://github.com/gatelabNW/slurp.git
+```
+
+## How to update slurp within a git repo
+
+Navigate into the root of your repo and execute the following:
+
+```
+ git submodule update --remote
+```
 
 ## How to use slurp
-From project root on Quest (accessed through `ssh -X <netID>@quest.northwestern.edu`), execute `python3 slurm --help` to see job submission options and guidelines.
+1) Navigate to your project root on Quest (accessed through `ssh -X <netID>@quest.northwestern.edu`)
 
-The expected execution format is `python3 slurm <analysis_name> <subanalysis_name> <additional_parameters>` where the script being run is stored at `code/<analysis_name>/<subanalysis_name>/<analysis_name>-<subanalysis_name>.R`
+2) Execute `python3 slurp --help` to see job submission options/guidelines and confirm proper installation.
 
-I.e. use `python3 slurm test slurm_test -m 1 -n 1 -t 1` to run the test file `code/test/slurm_test/test-slurm_test.R` with 1GB of RAM, 1 node, and 1 hour of time.
++ `slurp` assumes the script is in `R` unless otherwise specified with `--script/-s`
 
-Analysis or subanalysis specific paramters can be saved in `slurm/params.py` to avoid manually specifying the above parameters every time.
+3) Run your script using the following format: `python3 slurp <parent_analysis> <sub_analysis> <additional_parameters>` 
 
-Default values are as follows:  
-- p31535 account  
-- short partition  
-- 1 thread  
-- 2GB memory  
-- 1 hour  
++ Example: `python3 slurp test slurm_test -m 1 -n 1 -t 1` runs the file `code/test/slurm_test/test-slurm_test.R` with 1GB of RAM, 1 node, 1 hour of time, and remaining default parameters.
+
++ Analysis or subanalysis specific paramters can be saved in `slurp/params.py` to avoid manually specifying the above parameters every time; examples shown within script.
+
++ Default values are as follows:  
+------ account: p31535  (default)  
+------ threads: 1 threads (default)  
+------ mem: 2 GB (default)  
+------ time: 1 hour(s) (default)  
+------ partition: short (default)  
+------ script: R  (default)  
+------ condaenv:   (default)  
+------ modules: \['R/4.1.1', ''] (default)  
