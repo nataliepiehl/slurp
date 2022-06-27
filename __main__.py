@@ -20,7 +20,7 @@ from datetime import datetime
 from params import parent_params, sub_params, script_params
 
 # Record date and time
-print("\n", datetime.now())
+print("\n", datetime.now(), "\n")
 date = datetime.now().strftime("%Y_%m_%d")
 time = datetime.now().strftime("%H_%M_%S")
 
