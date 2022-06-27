@@ -28,7 +28,7 @@ parent_params = {
     'example_analysis': {
         'account': 'b1042',
         'partition': 'normal',
-        'script': 'python'
+        'script': 'python',
         'mem': 64,
         'time': 4,
         'threads': 1,
