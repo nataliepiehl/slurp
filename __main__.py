@@ -28,7 +28,11 @@ time = datetime.now().strftime("%H_%M_%S")
 # Handle command line arguments
 
 # Organize command line arguments
-parser = argparse.ArgumentParser(description='Submit slurm job',
+parser = argparse.ArgumentParser(description=f'''Submit a job to Quest via slurm\n
+                                                 Examples:\n
+                                                 python3 slurm test slurm_test -m 1\n
+                                                 python3 snapatac main -n 8 -c .env/snapatac_env\n
+                                                 python3 cellranger count -s bash -t 4''',
                                  formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('parentanalysis', type=str,
                     help='Name of parent analysis to run')
@@ -39,22 +43,22 @@ parser.add_argument('-a', '--account', type=str, default='',
                     help='Name of account to use\nDefault=p31535')
 parser.add_argument('-p', '--partition', type=str, default='',
                     choices=['short', 'normal', 'long', 'gengpu', 'genhimem'],
-                    help='Partition type to use; Default=normal')
+                    help='Partition type to use\nDefault=normal')
 parser.add_argument('-n', '--threads', type=int, default=0,
-                    help='Number of threads to use if analysis has multithreading functionality; Default=1')
+                    help='Number of threads to use if analysis has multithreading functionality\nDefault=1')
 parser.add_argument('-m', '--mem', type=int, default=0,
-                    help='Number of GB of RAM memory needed; Default=2')
+                    help='Number of GB of RAM memory needed\nDefault=2')
 parser.add_argument('-t', '--time', type=int, default=0,
-                    help='Number of hours needed; Default=1')
+                    help='Number of hours needed\nDefault=1')
 parser.add_argument('-s', '--script', type=str, default='', 
                     choices=['R', 'python', 'bash'],
-                    help='Language of script; Default=R')
+                    help='Language of script\nDefault=R')
 parser.add_argument('-o', '--modules', nargs = '+', type=str, default=[''],
-                    help='Additional modules to load; Default=None')
+                    help='Additional modules to load\nDefault=None')
 parser.add_argument('-c', '--condaenv', type=str,
-                    help='Specify conda environment to load; Default=None')
+                    help='Specify conda environment to load\nDefault=None')
 parser.add_argument('-d', '--dryrun', action='store_true',
-                    help='Execute a dryrun (check for file paths and create job file without submitting)')
+                    help='Execute a dryrun\n(check for file paths and create job file without submitting)')
 args = parser.parse_args()
 
 # Set dictionaries of pseudo defaults and manual defaults
