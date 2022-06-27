@@ -30,9 +30,9 @@ time = datetime.now().strftime("%H_%M_%S")
 # Organize command line arguments
 parser = argparse.ArgumentParser(description=f'''Submit a job to Quest via slurm\n
 Examples:\n
-python3 slurm test slurm_test -m 1\n
-python3 snapatac main -n 8 -c .env/snapatac_env\n
-python3 cellranger count -s bash -t 4''',
+python3 slurp test slurm_test -m 1\n
+python3 slurp snapatac main -n 8 -c .env/snapatac_env\n
+python3 slurp cellranger count -s bash -t 4''',
                                  formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('parentanalysis', type=str,
                     help='Name of parent analysis to run')
