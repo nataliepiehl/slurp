@@ -34,16 +34,19 @@ parser.add_argument('parentanalysis', type=str,
 parser.add_argument('subanalysis', type=str,
                     help='Name of sub analysis to run')
 parser.add_argument('-a', '--account', type=str, default='',
-                    help='Name of account to use; Default=p31535')
+                    choices=['p31535', 'b1042'],
+                    help='Name of account to use\nDefault=p31535')
 parser.add_argument('-p', '--partition', type=str, default='',
-                    help='Partition type to use; options: short, normal, long; Default=normal')
+                    choices=['short', 'normal', 'long', 'gengpu', 'genhimem'],
+                    help='Partition type to use; Default=normal')
 parser.add_argument('-n', '--threads', type=int, default=0,
                     help='Number of threads to use if analysis has multithreading functionality; Default=1')
 parser.add_argument('-m', '--mem', type=int, default=0,
                     help='Number of GB of RAM memory needed; Default=2')
 parser.add_argument('-t', '--time', type=int, default=0,
                     help='Number of hours needed; Default=1')
-parser.add_argument('-s', '--script', type=str, default='', choices=['R', 'python', 'bash'],
+parser.add_argument('-s', '--script', type=str, default='', 
+                    choices=['R', 'python', 'bash'],
                     help='Language of script; Default=R')
 parser.add_argument('-o', '--modules', nargs = '+', type=str, default=[''],
                     help='Additional modules to load; Default=None')
