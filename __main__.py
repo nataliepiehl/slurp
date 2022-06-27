@@ -43,7 +43,7 @@ parser.add_argument('-a', '--account', type=str, default='',
                     help='Name of account to use\nDefault=p31535')
 parser.add_argument('-p', '--partition', type=str, default='',
                     choices=['short', 'normal', 'long', 'gengpu', 'genhimem'],
-                    help='Partition type to use\nDefault=normal')
+                    help='Partition type to use\nDefault=short')
 parser.add_argument('-n', '--threads', type=int, default=0,
                     help='Number of threads to use if analysis has multithreading functionality\nDefault=1')
 parser.add_argument('-m', '--mem', type=int, default=0,
