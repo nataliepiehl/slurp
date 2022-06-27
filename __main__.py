@@ -5,7 +5,7 @@
 # 2022-02-03
 #
 # Generate slurm job script for a given analysis:subanalysis
-# Execute from project root as 'python3 slurm <analysis> <subanalysis> <args>'
+# Execute from project root as 'python3 slurp <analysis> <subanalysis> <args>'
 #
 # ------------------------------------------------------------------------------
 # Initialization
