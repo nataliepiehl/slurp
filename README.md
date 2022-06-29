@@ -39,6 +39,8 @@ Navigate into the root of the cloned repo and execute the following:
  git submodule update --remote
 ```
 
+NOTE: for some reason this fails on Windows when performed on a repo within a mounted drive. If you are using Windows, run the above within a Quest session.
+
 ## How to update slurp within a git repo
 
 Navigate into the root of your repo and execute the following:
