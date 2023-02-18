@@ -68,7 +68,7 @@ python3 slurp <parent_analysis> <sub_analysis> <additional_parameters>
   + The user can also be specified in `slurp/params.py` so it is written to each job log
 
 + Default values are as follows:  
------- account: p31535  
+------ account: [gate_allocation]  
 ------ threads: 1 threads  
 ------ mem: 2 GB  
 ------ time: 1 hour(s)  
