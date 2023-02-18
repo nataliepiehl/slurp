@@ -39,8 +39,8 @@ parser.add_argument('parentanalysis', type=str,
 parser.add_argument('subanalysis', type=str,
                     help='Name of sub analysis to run')
 parser.add_argument('-a', '--account', type=str, default='',
-                    choices=['p31535', 'b1042'],
-                    help='Name of account to use\nDefault=p31535')
+                    choices=['gate_allocation', 'b1042'],
+                    help='Name of account to use\nDefault=gate_allocation')
 parser.add_argument('-p', '--partition', type=str, default='',
                     choices=['short', 'normal', 'long', 'gengpu', 'genhimem'],
                     help='Partition type to use\nDefault=short')
@@ -63,7 +63,7 @@ args = parser.parse_args()
 
 # Set dictionaries of pseudo defaults and manual defaults
 defaults = vars(parser.parse_args(['', '']))
-manual_defaults = {'account': 'p31535',
+manual_defaults = {'account': 'gate_allocation',
                    'partition': 'short',
                    'threads': 1,
                    'mem': 2,
