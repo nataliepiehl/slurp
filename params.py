@@ -14,7 +14,7 @@
 #
 # Write out custom parameters for parent and sub analyses
 # Default values:
-# ------ account: p31535 
+# ------ account: [gate_allocation] 
 # ------ threads: 1 threads
 # ------ mem: 2 GB
 # ------ time: 1 hour(s)
